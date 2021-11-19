@@ -10,6 +10,10 @@ app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
 app.use(express.static('public'))
 
+// 設定 cookie功能
+const cookieParser = require('cookie-parser')
+app.use(cookieParser('signature')) // cookie 簽章，要用複雜字串才安全
+
 // 設定路由功能
 const routes = require('./routes')
 app.use(express.urlencoded({ extended: true }))

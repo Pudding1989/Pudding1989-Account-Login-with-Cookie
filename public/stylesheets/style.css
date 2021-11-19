@@ -93,7 +93,7 @@ body {
   margin: 0 0.25rem 0 0.5rem;
 }
 
-/* login.hbs */
+/* welcome.hbs */
 .name,
 .avatar {
   transition: opacity 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
@@ -103,4 +103,8 @@ body {
 .login:hover .name,
 .login:hover .avatar {
   opacity: 100%;
+}
+
+.logout{
+  margin: 1.5rem auto 0.75rem auto;
 }

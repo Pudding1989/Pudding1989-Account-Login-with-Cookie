@@ -3,8 +3,28 @@ const router = express.Router()
 
 const Account = require('../../models/account')
 
-router.get('/', (req, res) => {
-  res.render('index')
+router.get('/', async (req, res) => {
+  // 檢查 cookie
+  if (req.signedCookies.email) {
+    // 從 cookie裡讀取 email
+    const email = req.signedCookies.email
+    console.log('已簽章Cookies =>', req.signedCookies)
+    try {
+      const account = await Account.findOne({ email })
+        .lean()
+      // 判斷帳戶
+      if (account) {
+        console.log(`${account.firstName} 用Cookie登入`)
+        res.render('welcome', { firstName: account.firstName })
+      } else {
+        res.render('index')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  } else {
+    res.render('index')
+  }
 })
 
 // email 格式，與前端一致
@@ -37,12 +57,31 @@ router.post('/', async (req, res) => {
         [emailValid, passwordError] = [true, true]
         res.render('index', { email, emailValid, passwordError })
       } else {
+        // 定義 cookie選項參數
+        const cookieOption = {
+          //  cookie只能經由http(s)協定來存取，防JavaScript存取使用者的 session cookie
+          httpOnly: true,
+          // 已取代 expires屬性，單位毫秒
+          maxAge: 3 * 60 * 1000,
+          // 啟用簽章
+          signed: true
+        }
+        // 建立cookie
+        res.cookie('email', email, cookieOption)
         res.render('welcome', { firstName: account.firstName })
+        console.log(`已建立 cookie=>email:${email}`)
       }
     } catch (error) {
       console.error(error)
     }
   }
+})
+
+// 清除cookie，登出
+router.get('/logout', (req, res) => {
+  res.clearCookie('email')
+  res.redirect('/')
+  console.log('已清除 Cookie')
 })
 
 module.exports = router
