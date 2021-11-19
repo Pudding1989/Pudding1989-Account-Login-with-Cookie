@@ -1,0 +1,106 @@
+body {
+  background-color: whitesmoke;
+}
+
+.login {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+
+  padding: 1.5rem;
+  width: 320px;
+
+  text-align: center;
+
+  background-color: white;
+  border-radius: 0.5rem;
+
+  /* CSS Scan shadow #6 */
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  top: 17.5%;
+  color: var(--bs-primary);
+  transition: top 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+    color 2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+  animation: bounce 2s ease;
+}
+
+.login:hover {
+  top: 20%;
+  /* CSS Scan shadow #3 */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.login:hover label {
+  color: var(--bs-body-color);
+}
+
+.title {
+  transition: color 0.65s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  color: var(--bs-gray-500);
+  margin-top: 1rem;
+}
+
+.login:hover .title {
+  color: var(--bs-secondary);
+}
+
+.form-floating {
+  margin: 1.25rem auto;
+}
+
+.form-floating input:hover {
+  border-color: var(--bs-primary);
+}
+
+.form-floating input:focus {
+  color: var(--bs-primary);
+}
+
+.sign-in {
+  margin-bottom: 1rem;
+  transition: background-color 0.65s ease-out, border-color 0.65s ease-out,
+    opacity 0.65s ease-out;
+}
+
+.email-hint,
+.password-hint {
+  visibility: hidden;
+
+  text-align: start;
+  color: crimson;
+  margin-top: 0.25rem;
+
+  display: flex;
+  align-items: center;
+
+  transition: opacity 0.65s ease-out;
+  opacity: 0%;
+}
+
+.email-hint.visible,
+.password-hint.visible {
+  visibility: visible;
+  opacity: 90%;
+}
+
+.email-hint svg,
+.password-hint svg {
+  fill: crimson;
+  height: 0.875rem;
+  width: 0.875rem;
+  margin: 0 0.25rem 0 0.5rem;
+}
+
+/* login.hbs */
+.name,
+.avatar {
+  transition: opacity 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  opacity: 60%;
+}
+
+.login:hover .name,
+.login:hover .avatar {
+  opacity: 100%;
+}
